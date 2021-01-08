@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Game_Store_Racz_Christine.Droid.Pages.MainPage"
+             BackgroundColor="#BEB9FF"
+             BackgroundImage="bg.jpg">
+
+    <StackLayout>
+        <Frame BackgroundColor="#ba0965" Padding="24" CornerRadius="0">
+            <Label Text="Game Store" HorizontalTextAlignment="Center" TextColor="#ff8d03" FontSize="36"/>
+        </Frame>
+        <Label Text="Welcome! You are logged in as:" FontSize="Title" Padding="30,10,30,10" HorizontalTextAlignment="Center" TextColor="#ba0965"/>
+        <Label Text="{Binding Email}" FontSize="25" Padding="30,0,30,0" HorizontalTextAlignment="Center" TextColor="#ba0965"/>
+        <StackLayout Orientation="Vertical" Padding="20" Spacing="30">
+            <BoxView HeightRequest="10"/>
+            <Button Command="{Binding MyGamesCommand}" Text="My games" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+            <Button Command="{Binding GameCategoriesCommand}" Text="Game categories" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+            <Button Command="{Binding AccountSettingsCommand}" Text="Account Settings" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+            <Button Command="{Binding LogOutUserCommand}" Text="Logout" BackgroundColor="#ba0965" TextColor="White" Padding="50,10,30,10" />
+        </StackLayout>
+    </StackLayout>
+
+</ContentPage>

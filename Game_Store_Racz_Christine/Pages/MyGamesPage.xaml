@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Game_Store_Racz_Christine.Pages.MyGamesPage"
+             BackgroundColor="#BEB9FF"
+             BackgroundImage="bg.jpg">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add New Game"  />
+    </ContentPage.ToolbarItems>
+    <StackLayout>
+        <Frame BackgroundColor="#ba0965" Padding="24" CornerRadius="0">
+            <Label Text="My Games" HorizontalTextAlignment="Center" TextColor="#ff8d03" FontSize="36"/>
+        </Frame>
+        <Label Text="Enjoy!" FontSize="Title" Padding="30,10,30,10" HorizontalTextAlignment="Center" TextColor="#ba0965"/>
+        <Label Text="Your games:" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
+        <ListView x:Name="listView" Margin="20" ItemSelected="OnListViewItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding Description}" Detail="{Binding Date}" />
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Command="{Binding BackToMainPageCommand}" Text="Back to Main Page" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+    </StackLayout>
+</ContentPage>
