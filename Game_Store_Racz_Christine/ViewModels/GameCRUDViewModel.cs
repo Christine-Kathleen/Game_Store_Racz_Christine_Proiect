@@ -17,7 +17,6 @@ namespace Game_Store_Racz_Christine.ViewModels
 
         public ICommand BackToMyGamesPageCommand { protected set; get; }
         public ICommand SaveButtonClickedCommand { protected set; get; }
-        public ICommand DeleteButtonClickedCommand { protected set; get; }
 
         public Action DisplayGameAdded;
         public Action DisplayGameDeleted;
@@ -45,6 +44,17 @@ namespace Game_Store_Racz_Christine.ViewModels
             }
         }
 
+        private Category selectedCategory;
+        public Category SelectedCategory
+        {
+            get { return selectedCategory; }
+            set
+            {
+                selectedCategory = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("SelectedCategory"));
+            }
+        }
+
         private List<Category> categories;
         public List<Category> Categories
         {
@@ -60,14 +70,13 @@ namespace Game_Store_Racz_Christine.ViewModels
             user = _user;
             BackToMyGamesPageCommand = new Command(OnGoToMyGames);
             SaveButtonClickedCommand = new Command(OnSaveButtonClicked);
-            DeleteButtonClickedCommand = new Command(OnDeleteButtonClicked);
             GetCategories(user);
         }
 
         async public void GetCategories(User user)
         {
-            await App.Database.SaveCategoryAsync(new Category() { CategoryName = "Puzzle", UserID = user.ID });
-            Categories = await App.Database.GetCategorysAsync();
+            //int id=await App.Database.SaveCategoryAsync(new Category() { CategoryName = "FPS", UserID = user.ID });
+            Categories = await App.Database.GetCategorysAsync(user.ID);
         }
 
 
@@ -79,16 +88,13 @@ namespace Game_Store_Racz_Christine.ViewModels
         }
         async public void OnSaveButtonClicked()
         {
-            await App.Database.SaveGameAsync(new Game() { Name = name, Description = description });
+            //TODO throw pop up if no category is selected or no description or no name
+            await App.Database.SaveGameAsync(new Game() { Name = name, Description = description,CategoryID= SelectedCategory.ID,UserID=user.ID});
             DisplayGameAdded();
+            Name = "";
+            Description = "";
         }
-        async public void OnDeleteButtonClicked()
-        {
-            //ait App.Database.DeleteGameAsync(name);
-            DisplayGameDeleted();
-            MyGamesPage Page = new MyGamesPage(user);
-            Application.Current.MainPage = Page;
-        }
+
 
 
 

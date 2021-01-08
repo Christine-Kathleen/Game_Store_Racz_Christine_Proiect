@@ -14,10 +14,10 @@
                            PlaceholderColor="White" HeightRequest="50"   
                            TextColor="White"/>
                     <Picker Title="" ItemsSource="{Binding Categories}"/>
-                    <ListView ItemsSource="{Binding Categories}">
+                    <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
-                                <TextCell Text="{Binding ID}" Detail="{Binding CategoryName}" />
+                                <TextCell  Detail="{Binding CategoryName}" />
                             </DataTemplate>
                         </ListView.ItemTemplate>
                     </ListView>
