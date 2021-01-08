@@ -13,9 +13,9 @@
             <StackLayout Orientation="Vertical" Spacing="10">
                 <Label Text="Please enter the new password!" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
                 <Entry x:Name="NewPassword" Text="{Binding NewPassword}" Placeholder="Password"   
-                           PlaceholderColor="Black" HeightRequest="40"   
+                           PlaceholderColor="White" HeightRequest="40"   
                            IsPassword="True"  
-                           TextColor="Black"/>
+                           TextColor="White"/>
             </StackLayout>
             <StackLayout Orientation="Vertical" Padding="20" Spacing="30">
                 <BoxView HeightRequest="10"/>

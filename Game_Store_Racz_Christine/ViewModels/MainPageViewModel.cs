@@ -29,6 +29,8 @@ namespace Game_Store_Racz_Christine.Droid.ViewModels
         public ICommand LogOutUserCommand { protected set; get; }
         public ICommand AccountSettingsCommand { protected set; get; }
         public ICommand MyGamesCommand { protected set; get; }
+        public ICommand GameCategoriesCommand { protected set; get; }
+        
 
         public MainPageViewModel(User _user)
         {
@@ -37,10 +39,11 @@ namespace Game_Store_Racz_Christine.Droid.ViewModels
             LogOutUserCommand = new Command(OnLogOut);
             AccountSettingsCommand = new Command(OnAccountSettings);
             MyGamesCommand = new Command(OnMyGames);
+            GameCategoriesCommand = new Command(OnGameCategories);
             //test();
             //Task t= App.Database.SaveCategoryAsync(new Category() { UserID = user.ID, CategoryName = "FPS" });
 
-           // App.Database.SaveGameAsync(new Game() { UserID = user.ID, });
+            // App.Database.SaveGameAsync(new Game() { UserID = user.ID, });
         }
 
         //public async void test()
@@ -51,7 +54,12 @@ namespace Game_Store_Racz_Christine.Droid.ViewModels
         //}
         public void OnMyGames()
         {
-            MyGamesPage Page = new MyGamesPage();
+            MyGamesPage Page = new MyGamesPage(user);
+            Application.Current.MainPage = Page;
+        }
+        public void OnGameCategories()
+        {
+            CategoryPage Page = new CategoryPage(user);
             Application.Current.MainPage = Page;
         }
 

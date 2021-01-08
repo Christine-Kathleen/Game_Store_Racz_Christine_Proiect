@@ -62,6 +62,14 @@ namespace Game_Store_Racz_Christine.Data
         {
             return _database.Table<Category>().ToListAsync();
         }
+
+        public Task<List<Category>> GetCategorysAsync(int UserID)
+        {
+            return _database.QueryAsync<Category>(
+            "select C.ID, C.CategoryName from Category C"
+            + " where C.UserID = ?", 
+            UserID);
+        }
         public Task<int> SaveGameAsync(Game sgame)
         {
             if (sgame.ID != 0)

@@ -7,8 +7,8 @@
     <ContentPage.Content>
         <StackLayout Orientation="Vertical" Padding="30" Spacing="40">
             <BoxView HeightRequest="10"/>
-            <Image HorizontalOptions="Center" WidthRequest="300" Source="maco.jpg"/>
-            <Label Text="Create Account" />
+            <Image HorizontalOptions="Center" WidthRequest="200" Source="logo.jpg"/>
+            <Label Text="Create Account" HorizontalTextAlignment="Center" FontSize="25" Padding="20,0,30,0" TextColor="#ba0965"/>
             <Frame BackgroundColor="#ba0965" HasShadow="False">
                 <StackLayout Orientation="Vertical" Spacing="10">
                     <Entry x:Name="Email" Text="{Binding Email}" Placeholder="Email"   

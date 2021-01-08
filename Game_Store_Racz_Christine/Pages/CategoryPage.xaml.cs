@@ -12,11 +12,11 @@ using Xamarin.Forms.Xaml;
 namespace Game_Store_Racz_Christine.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class MyGamesPage : ContentPage
+    public partial class CategoryPage : ContentPage
     {
-        public MyGamesPage(User _user)
+        public CategoryPage(User _user)
         {
-            var vm = new MyGamesViewModel(_user);
+            var vm = new CategoryViewModel(_user );
             this.BindingContext = vm;
             InitializeComponent();
         }

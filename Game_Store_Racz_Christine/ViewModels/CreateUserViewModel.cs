@@ -76,7 +76,7 @@ namespace Game_Store_Racz_Christine.Droid.ViewModels
        public void OnChangeToSignIn()
         {
             //open Login Page
-            LoginPage Page = new Game_Store_Racz_Christine.Droid.Pages.LoginPage();
+            LoginPage Page = new LoginPage();
            Application.Current.MainPage = Page;
         }
     }

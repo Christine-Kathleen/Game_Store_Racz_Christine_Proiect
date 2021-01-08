@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Game_Store_Racz_Christine.Pages.GameCRUDPage"
+             BackgroundImage="bg.jpg">
+    <ContentPage.Content>
+        <StackLayout Margin="20">
+            <Frame BackgroundColor="#ba0965" HasShadow="False" VerticalOptions="Center">
+                <StackLayout Orientation="Vertical" Spacing="10">
+                    <Entry x:Name="Name" Text="{Binding Name}" Placeholder="Enter the game name"   
+                           PlaceholderColor="White" HeightRequest="50"   
+                           TextColor="White"/>
+                    <Entry x:Name="Description" Text="{Binding Description}" Placeholder="Enter the game description"   
+                           PlaceholderColor="White" HeightRequest="50"   
+                           TextColor="White"/>
+                    <Picker Title="" ItemsSource="{Binding Categories}"/>
+                    <ListView ItemsSource="{Binding Categories}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <TextCell Text="{Binding ID}" Detail="{Binding CategoryName}" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </Frame>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="1" Text="Delete" Command="{Binding DeleteButtonClickedCommand}" BackgroundColor="#ff8d03" TextColor="White"/>
+                <Button Command="{Binding SaveButtonClickedCommand}" Text="Save" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+            </Grid>
+            <Button Command="{Binding BackToMyGamesPageCommand}" Text="Back" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
+    

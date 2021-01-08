@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Game_Store_Racz_Christine.Pages.CategoryPage"
+             BackgroundImage="bg.jpg">
+    <StackLayout>
+        <Frame BackgroundColor="#ba0965" Padding="24" CornerRadius="0">
+            <Button Text="Add New Category"  TextColor="#ff8d03" FontSize="20" Command="{Binding AddCategorySelectedCommand}" BackgroundColor="#ba0965"/>
+        </Frame>
+        <Label Text="Your games:" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
+        <Button Command="{Binding BackToMainPageCommand}" Text="Back to Main Page" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+    </StackLayout>
+</ContentPage>
