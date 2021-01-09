@@ -15,10 +15,10 @@ namespace Game_Store_Racz_Christine.ViewModels
     {
         public event PropertyChangedEventHandler PropertyChanged = delegate { };
         private readonly User user;
-        
+        public Action DisplayGameDeleted;
+
 
         public ICommand AddGameSelectedCommand { protected set; get; }
-        public ICommand ViewGameSelectedCommand { protected set; get; }
         public ICommand BackToMainPageCommand { protected set; get; }
         public ICommand EditGameCommand { protected set; get; }
         public ICommand DeleteGameCommand { protected set; get; }
@@ -39,6 +39,11 @@ namespace Game_Store_Racz_Christine.ViewModels
             get { return selectedGame; }
             set
             {
+                if (value != null)
+                {
+                    EditDeleteEnabled = true;
+                }
+                else EditDeleteEnabled = false;
                 selectedGame = value;
                 PropertyChanged(this, new PropertyChangedEventArgs("SelectedGame"));
             }
@@ -48,21 +53,38 @@ namespace Game_Store_Racz_Christine.ViewModels
         {
             user = _user;
             AddGameSelectedCommand = new Command(OnAddNewGameClicked);
-            ViewGameSelectedCommand = new Command(OnViewGameSelected);
             BackToMainPageCommand = new Command(OnBackToMainPage);
             EditGameCommand = new Command(OnEditGame);
             DeleteGameCommand = new Command(OnDeleteGame);
             GetGames(user);
         }
+        bool editDeleteEnabled;
+        public bool EditDeleteEnabled
+        {
+            get { return editDeleteEnabled; }
+            set
+            {
+                editDeleteEnabled = value;
+                PropertyChanged(this, new PropertyChangedEventArgs("EditDeleteEnabled"));
+            }
+        }
         public void OnEditGame()
         {
-            GameCRUDPage Page = new GameCRUDPage(user);
+            Games = null;
+            Game game = new Game() { ID = selectedGame.ID, CategoryID = selectedGame.CategoryID, Description = selectedGame.Description, Name = selectedGame.Name, UserID = selectedGame.UserID };
+            selectedGame = null;
+            GameCRUDPage Page = new GameCRUDPage(user, game);
             Application.Current.MainPage = Page;
         }
         async public void OnDeleteGame()
         {
-            await App.Database.DeleteGameAsync(selectedGame);
+            Game game=new Game() { ID = selectedGame.ID, CategoryID = selectedGame.CategoryID, Description = selectedGame.Description, Name = selectedGame.Name, UserID = selectedGame.UserID };
+            selectedGame = null;
+            int deletedcount=await App.Database.DeleteGameAsync(game);
+
             GetGames(user);
+            selectedGame = null;
+            DisplayGameDeleted();
         }
         async public void GetGames(User user)
         {
@@ -73,24 +95,19 @@ namespace Game_Store_Racz_Christine.ViewModels
             GameCRUDPage Page = new GameCRUDPage(user);
             Application.Current.MainPage = Page;
         }
-        public void OnViewGameSelected()
-        {
-            GameCRUDPage Page = new GameCRUDPage(user);
-            Application.Current.MainPage = Page;
-        }
         public void OnBackToMainPage()
         {
             MainPage Page = new MainPage(user);
             Application.Current.MainPage = Page;
         }
 
-        async void OnViewGameSelected(object sender, SelectedItemChangedEventArgs e)
-        {
-            if (e.SelectedItem != null)
-            {
+        //async void OnViewGameSelected(object sender, SelectedItemChangedEventArgs e)
+        //{
+        //    if (e.SelectedItem != null)
+        //    {
                 
-            }
-        }
+        //    }
+        //}
 
 
         /*async void OnListViewItemSelected(object sender, SelectedItemChangedEventArgs e)

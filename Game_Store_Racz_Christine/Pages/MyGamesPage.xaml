@@ -9,15 +9,15 @@
         <Button Text="Add New Game"  TextColor="#ff8d03" FontSize="20" Command="{Binding AddGameSelectedCommand}" BackgroundColor="#ba0965"/>
         </Frame>
         <Label Text="Your games:" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
-        <ListView ItemsSource="{Binding Games }" SelectedItem="{Binding SelectedGame}">
+        <ListView ItemsSource="{Binding Games }" SelectedItem="{Binding Mode=TwoWay, Path=SelectedGame}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <TextCell  Text="{Binding Name}" Detail="{Binding Description}" DetailColor="White"/>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
-        <Button Command="{Binding EditGameCommand}" Text="Edit" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
-        <Button Command="{Binding DeleteGameCommand}" Text="Delete" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+        <Button Command="{Binding EditGameCommand}" Text="Edit" IsEnabled="{Binding EditDeleteEnabled}" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+        <Button Command="{Binding DeleteGameCommand}" Text="Delete" IsEnabled="{Binding EditDeleteEnabled}" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
         <Button Command="{Binding BackToMainPageCommand}" Text="Back to Main Page" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
     </StackLayout>
 </ContentPage>

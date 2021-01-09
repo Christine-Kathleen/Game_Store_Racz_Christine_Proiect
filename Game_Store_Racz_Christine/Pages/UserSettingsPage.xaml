@@ -8,10 +8,10 @@
             <Frame BackgroundColor="#ba0965" Padding="24" CornerRadius="0">
                 <Label Text="Account Settings" HorizontalTextAlignment="Center" TextColor="#ff8d03" FontSize="36"/>
             </Frame>
-            <Label Text="The email of your account is" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
-            <Label Text="{Binding Email}" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
+            <Label Text="The email of your account is" FontSize="25" Padding="30,0,30,0" TextColor="White"/>
+            <Label Text="{Binding Email}" FontSize="25" Padding="30,0,30,0" TextColor="White"/>
             <StackLayout Orientation="Vertical" Spacing="10">
-                <Label Text="Please enter the new password!" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
+                <Label Text="Please enter the new password!" FontSize="25" Padding="30,0,30,0" TextColor="White"/>
                 <Entry x:Name="NewPassword" Text="{Binding NewPassword}" Placeholder="Password"   
                            PlaceholderColor="White" HeightRequest="40"   
                            IsPassword="True"  

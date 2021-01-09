@@ -19,11 +19,14 @@ namespace Game_Store_Racz_Christine.ViewModels
         public ICommand SaveButtonClickedCommand { protected set; get; }
 
         public Action DisplayGameAdded;
-        public Action DisplayGameDeleted;
         public Action DisplayGameAlreadyInList;
+        public Action DisplayEmptyFields;
+        public Action DisplayGameModified;
+
         private string name;
         private readonly User user;
 
+        private Game editableGame;
         public string Name
         {
             get { return name; }
@@ -65,22 +68,26 @@ namespace Game_Store_Racz_Christine.ViewModels
                 PropertyChanged(this, new PropertyChangedEventArgs("Categories"));
             }
         }
-        public GameCRUDViewModel(User _user)
+        public GameCRUDViewModel(User _user, Game game)            
         {
+            editableGame = game;
             user = _user;
             BackToMyGamesPageCommand = new Command(OnGoToMyGames);
             SaveButtonClickedCommand = new Command(OnSaveButtonClicked);
-            GetCategories(user);
+             GetCategories(user);
         }
 
         async public void GetCategories(User user)
         {
-            //int id=await App.Database.SaveCategoryAsync(new Category() { CategoryName = "FPS", UserID = user.ID });
             Categories = await App.Database.GetCategorysAsync(user.ID);
+
+            if (editableGame != null)
+            {
+                SelectedCategory = categories.Find(cat => cat.ID == editableGame.CategoryID);
+                Description = editableGame.Description;
+                Name = editableGame.Name;
+            }
         }
-
-
-
         public void OnGoToMyGames()
         {
             MyGamesPage Page = new MyGamesPage(user);
@@ -88,16 +95,51 @@ namespace Game_Store_Racz_Christine.ViewModels
         }
         async public void OnSaveButtonClicked()
         {
-            //TODO throw pop up if no category is selected or no description or no name
-            await App.Database.SaveGameAsync(new Game() { Name = name, Description = description,CategoryID= SelectedCategory.ID,UserID=user.ID});
-            DisplayGameAdded();
-            Name = "";
-            Description = "";
+            //edit
+            if (editableGame != null)
+            {
+                List<Game> games = await App.Database.GetGamesAsync(user.ID);
+                if (games.Exists(game => game.Name.ToUpper() == name.ToUpper() && game.ID!=editableGame.ID))
+                {
+                    DisplayGameAlreadyInList();
+                }
+                else if ((!string.IsNullOrEmpty(Name)) && (!string.IsNullOrEmpty(Description)) && (selectedCategory != null))
+                {
+                    editableGame.CategoryID = selectedCategory.ID;
+                    editableGame.Description = description;
+                    editableGame.Name = name;
+                    Game gm = new Game() { ID = editableGame.ID, CategoryID = editableGame.CategoryID, Description = editableGame.Description, Name = editableGame.Name, UserID = editableGame.UserID };
+                    await App.Database.SaveGameAsync(gm);
+                    DisplayGameModified();
+                    //Name = "";
+                    //Description = "";
+                }
+                else
+                {
+                    DisplayEmptyFields();
+                }
+            }
+            //create
+            else
+            {
+                List<Game> games = await App.Database.GetGamesAsync(user.ID);
+                if (games.Exists(game => game.Name.ToUpper() == name.ToUpper()))
+                {
+                    DisplayGameAlreadyInList();
+                }
+                else if ((!string.IsNullOrEmpty(Name)) && (!string.IsNullOrEmpty(Description)) && (selectedCategory != null))
+                {
+                    await App.Database.SaveGameAsync(new Game() { Name = name, Description = description, CategoryID = SelectedCategory.ID, UserID = user.ID });
+                    DisplayGameAdded();
+                    Name = "";
+                    Description = "";
+                }
+                else
+                {
+                    DisplayEmptyFields();
+                }
+            }
         }
-
-
-
-
     }
 }
 

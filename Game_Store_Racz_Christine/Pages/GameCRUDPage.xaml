@@ -13,8 +13,8 @@
                     <Entry x:Name="Description" Text="{Binding Description}" Placeholder="Enter the game description"   
                            PlaceholderColor="White" HeightRequest="50"   
                            TextColor="White"/>
-                    <Picker Title="" ItemsSource="{Binding Categories}"/>
-                    <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}">
+                    <Label Text="Categories" />
+                    <ListView ItemsSource="{Binding Categories}" SelectedItem="{Binding Mode=TwoWay, Path=SelectedCategory}">
                         <ListView.ItemTemplate>
                             <DataTemplate>
                                 <TextCell  Detail="{Binding CategoryName}" />
@@ -23,18 +23,7 @@
                     </ListView>
                 </StackLayout>
             </Frame>
-            <Grid>
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
-                <Button Grid.Column="1" Text="Delete" Command="{Binding DeleteButtonClickedCommand}" BackgroundColor="#ff8d03" TextColor="White"/>
-                <Button Command="{Binding SaveButtonClickedCommand}" Text="Save" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
-            </Grid>
+            <Button Command="{Binding SaveButtonClickedCommand}" Text="Save" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
             <Button Command="{Binding BackToMyGamesPageCommand}" Text="Back" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
         </StackLayout>
     </ContentPage.Content>

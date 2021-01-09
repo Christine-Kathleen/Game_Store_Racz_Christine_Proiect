@@ -12,8 +12,9 @@ namespace Game_Store_Racz_Christine.Data
             
             _database = new SQLiteAsyncConnection(dbPath);//creates a new sqlite connection
             _database.CreateTableAsync<User>().Wait();
-           // _database.DropTableAsync<Game>().Wait();
+          // _database.DropTableAsync<Game>().Wait();
             _database.CreateTableAsync<Game>().Wait();
+          //  _database.DropTableAsync<Category>().Wait();
             _database.CreateTableAsync<Category>().Wait();
 
         }
@@ -57,10 +58,10 @@ namespace Game_Store_Racz_Christine.Data
                 return _database.InsertAsync(scat);
             }
         }
-
-        public Task<List<Category>> GetCategorysAsync()
+        public Task<int> DeleteCategoryAsync(Category scat)
         {
-            return _database.Table<Category>().ToListAsync();
+            scat.IsActive = false;
+            return _database.UpdateAsync(scat);
         }
 
         public Task<List<Category>> GetCategorysAsync(int UserID)
@@ -68,7 +69,7 @@ namespace Game_Store_Racz_Christine.Data
             
             return _database.QueryAsync<Category>(
             "select * from Category C"
-            + " where C.UserID = ?", 
+            + " where C.UserID = ? and IsActive = 1", 
             UserID);
         }
         public Task<int> SaveGameAsync(Game sgame)
@@ -86,11 +87,6 @@ namespace Game_Store_Racz_Christine.Data
         {
             return _database.DeleteAsync(sgame);
         }
-        public Task<List<Game>> GetGamesAsync()
-        {
-            return _database.Table<Game>().ToListAsync();
-        }
-
         public Task<List<Game>> GetGamesAsync(int UserID)
         {
             return _database.QueryAsync<Game>(

@@ -18,6 +18,7 @@ namespace Game_Store_Racz_Christine.Pages
         {
             var vm = new CategoryViewModel(_user );
             this.BindingContext = vm;
+            vm.DisplayCategoryDeleted += () => DisplayAlert("Success", "The category was deleted!", "OK");
             InitializeComponent();
         }
     }

@@ -15,5 +15,8 @@ namespace Game_Store_Racz_Christine.Models
         public int UserID { get; set; }
         public string CategoryName { get; set; }
 
+        [NotNull]
+        public bool IsActive { get; set; } = true;
+
     }
 }

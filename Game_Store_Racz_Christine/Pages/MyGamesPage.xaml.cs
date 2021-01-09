@@ -18,6 +18,7 @@ namespace Game_Store_Racz_Christine.Pages
         {
             var vm = new MyGamesViewModel(_user);
             this.BindingContext = vm;
+            vm.DisplayGameDeleted += () => DisplayAlert("Success", "The game was deleted!", "OK");
             InitializeComponent();
         }
     }

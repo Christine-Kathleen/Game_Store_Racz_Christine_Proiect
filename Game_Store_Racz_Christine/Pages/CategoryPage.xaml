@@ -7,7 +7,16 @@
         <Frame BackgroundColor="#ba0965" Padding="24" CornerRadius="0">
             <Button Text="Add New Category"  TextColor="#ff8d03" FontSize="20" Command="{Binding AddCategorySelectedCommand}" BackgroundColor="#ba0965"/>
         </Frame>
-        <Label Text="Your games:" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
-        <Button Command="{Binding BackToMainPageCommand}" Text="Back to Main Page" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+        <Label Text="Your categories:" FontSize="25" Padding="30,0,30,0" TextColor="#ba0965"/>
+        <ListView ItemsSource="{Binding Categories }" SelectedItem="{Binding Mode=TwoWay, Path=SelectedCategory}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <TextCell Text="{Binding CategoryName}"/>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Button Command="{Binding EditCategoryCommand}" IsEnabled="{Binding EditDeleteEnabled}" Text="Edit" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+        <Button Command="{Binding DeleteCategoryCommand}" IsEnabled="{Binding EditDeleteEnabled}" Text="Delete" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
+        <Button Command="{Binding BackToMainPageCommand}" Text="Back" BackgroundColor="#ff8d03" TextColor="White" Padding="30,10,30,10" />
     </StackLayout>
 </ContentPage>
